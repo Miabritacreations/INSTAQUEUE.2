@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/LandingPage.css';
 
+const campusImage = new URL('../assets/images/kca-university-town-campus-fun-day-ymca-grounds-6.jpg', import.meta.url).href;
+
 export function LandingPage() {
   const navigate = useNavigate();
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -13,11 +15,24 @@ export function LandingPage() {
   return (
     <div className="landing-page">
       {/* Hero Section */}
-      <section className="hero" style={{ backgroundPosition: `center ${scrollPosition * 0.5}px` }}>
+      <section 
+        className="hero" 
+        style={{ 
+          backgroundImage: `url(${campusImage})`,
+          backgroundPosition: `center ${scrollPosition * 0.5}px`,
+          backgroundSize: 'cover',
+          backgroundAttachment: 'fixed',
+        }}
+      >
+        <div className="hero-overlay"></div>
         <div className="hero-content">
           <div className="hero-text">
-            <h1>Smart Campus Queue Management</h1>
-            <p className="hero-subtitle">Eliminate physical queues. Get real-time updates. Manage your time efficiently.</p>
+            <span className="hero-badge">Campus Management Platform</span>
+            <h1>Smart Queue Management for Modern Universities</h1>
+            <p className="hero-subtitle">
+              Say goodbye to long physical queues. With InstaQueue, book appointments online, 
+              track your position in real-time, and focus on your studies instead of waiting.
+            </p>
             
             <div className="hero-buttons">
               <button className="btn btn-primary" onClick={() => navigate('/register')}>
@@ -31,32 +46,57 @@ export function LandingPage() {
             <div className="hero-stats">
               <div className="stat">
                 <h3>50+</h3>
-                <p>Campus Departments</p>
+                <p>Departments</p>
               </div>
               <div className="stat">
                 <h3>5K+</h3>
-                <p>Active Students</p>
+                <p>Active Users</p>
               </div>
               <div className="stat">
                 <h3>99%</h3>
-                <p>Satisfaction Rate</p>
+                <p>Uptime</p>
               </div>
             </div>
           </div>
 
-          <div className="hero-image">
-            <div className="feature-box">
-              <div className="feature-icon">📱</div>
-              <p>Mobile-First Design</p>
+          <div className="hero-benefits">
+            <div className="benefit-item">
+              <div className="benefit-icon">⚡</div>
+              <h4>Instant Booking</h4>
+              <p>Reserve appointments in seconds</p>
             </div>
-            <div className="feature-box">
-              <div className="feature-icon">⚡</div>
-              <p>Real-Time Updates</p>
+            <div className="benefit-item">
+              <div className="benefit-icon">📍</div>
+              <h4>Real-Time Tracking</h4>
+              <p>Know your queue position anytime</p>
             </div>
-            <div className="feature-box">
-              <div className="feature-icon">✓</div>
-              <p>No More Waiting</p>
+            <div className="benefit-item">
+              <div className="benefit-icon">🔔</div>
+              <h4>Smart Notifications</h4>
+              <p>Get alerted when it's your turn</p>
             </div>
+          </div>
+        </div>
+
+        {/* Image Credit Section */}
+        <div className="hero-credit">
+          <div className="credit-badge">
+            <span className="credit-icon">📸</span>
+            <div className="credit-content">
+              <p className="credit-label">Featured Campus</p>
+              <a 
+                href="https://monrovia.kcau.ac.ke/kca-university-town-campus-fun-day-ymca-grounds/#lg=1&slide=3"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="credit-link"
+                title="KCA University Town Campus Fun Day, YMCA Grounds"
+              >
+                KCA University Town Campus
+              </a>
+            </div>
+            <svg className="credit-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
           </div>
         </div>
       </section>
