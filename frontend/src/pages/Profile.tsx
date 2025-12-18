@@ -53,6 +53,8 @@ export function Profile() {
     e.preventDefault();
     
     setSaving(true);
+    const loadingToast = toast.loading('Updating profile...');
+    
     try {
       await authService.updateProfile({
         name: formData.name,
@@ -61,12 +63,12 @@ export function Profile() {
         department: formData.department,
         year: formData.year
       });
-      toast.success('Profile updated successfully!');
+      toast.success('Profile updated successfully!', { id: loadingToast });
       setIsEditing(false);
       fetchProfile(); // Refresh profile data
     } catch (error: any) {
       console.error('Failed to update profile:', error);
-      toast.error(error.response?.data?.error || 'Failed to update profile');
+      toast.error(error.response?.data?.error || 'Failed to update profile', { id: loadingToast });
     } finally {
       setSaving(false);
     }

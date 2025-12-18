@@ -48,6 +48,8 @@ export function Feedback() {
     }
 
     setSubmitting(true);
+    const loadingToast = toast.loading('Submitting feedback...');
+    
     try {
       await feedbackService.submitFeedback(
         parseInt(formData.department_id),
@@ -55,12 +57,12 @@ export function Feedback() {
         formData.experience,
         formData.suggestions
       );
-      toast.success('Thank you for your feedback!');
+      toast.success('Thank you for your feedback!', { id: loadingToast });
       setFormData({ department_id: '', experience: '', suggestions: '' });
       setRating(0);
     } catch (error: any) {
       console.error('Failed to submit feedback:', error);
-      toast.error(error.response?.data?.error || 'Failed to submit feedback');
+      toast.error(error.response?.data?.error || 'Failed to submit feedback', { id: loadingToast });
     } finally {
       setSubmitting(false);
     }

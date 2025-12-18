@@ -7,7 +7,7 @@ interface AuthContextType {
   token: string | null;
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
   isAuthenticated: boolean;
 }
 
@@ -28,10 +28,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     await authService.register(name, email, password);
   }, []);
 
-  const logout = useCallback(() => {
-    setUser(null);
-    setToken(null);
-    localStorage.removeItem('token');
+  const logout = useCallback(async () => {
+    try {
+      // Call backend logout endpoint
+      await authService.logout();
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Continue with logout even if backend call fails
+    } finally {
+      // Clear local state and storage
+      setUser(null);
+      setToken(null);
+      localStorage.removeItem('token');
+    }
   }, []);
 
   return (

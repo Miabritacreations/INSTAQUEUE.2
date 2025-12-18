@@ -70,4 +70,18 @@ export class AuthController {
       res.status(500).json({ error: error.message });
     }
   }
+
+  static async logout(req: Request, res: Response) {
+    try {
+      if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
+
+      // Here you can add token blacklisting logic if needed
+      // For now, we'll just return success and let the frontend handle token removal
+      res.json({ success: true, message: 'Logged out successfully' });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }

@@ -23,6 +23,7 @@ export const authService = {
     api.post('/auth/register', { name, email, password }),
   login: (email: string, password: string) =>
     api.post('/auth/login', { email, password }),
+  logout: () => api.post('/auth/logout'),
   getProfile: () => api.get('/auth/profile'),
   updateProfile: (data: { name: string; email: string; phone?: string; department?: string; year?: string }) =>
     api.put('/auth/profile', data),

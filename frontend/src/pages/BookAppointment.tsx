@@ -53,6 +53,8 @@ export function BookAppointment() {
       return;
     }
 
+    const loadingToast = toast.loading('Booking appointment...');
+    
     try {
       await appointmentService.createAppointment(
         parseInt(formData.department_id),
@@ -60,14 +62,14 @@ export function BookAppointment() {
         formData.time,
         formData.reason
       );
-      toast.success('Appointment booked successfully!');
+      toast.success('Appointment booked successfully!', { id: loadingToast });
       setFormData({ department_id: '', date: '', time: '', reason: '' });
       
       // Navigate to appointments page after 1 second
       setTimeout(() => navigate('/appointments'), 1000);
     } catch (error: any) {
       console.error('Failed to book appointment:', error);
-      toast.error(error.response?.data?.error || 'Failed to book appointment');
+      toast.error(error.response?.data?.error || 'Failed to book appointment', { id: loadingToast });
     }
   };
 
