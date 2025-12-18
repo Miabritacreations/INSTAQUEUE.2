@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Auth.css';
@@ -9,7 +10,6 @@ export const Register: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { register } = useAuth();
@@ -17,13 +17,14 @@ export const Register: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
 
     try {
       await register(name, email, password);
-      navigate('/login');
+      toast.success('Registration successful! Redirecting to login...');
+      setTimeout(() => navigate('/login'), 500);
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Registration failed');
+      const errorMessage = err.response?.data?.error || 'Registration failed';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -43,7 +44,6 @@ export const Register: React.FC = () => {
       <div className="auth-content">
         <div className="auth-card">
           <h1>Create Account</h1>
-          {error && <div className="error">{error}</div>}
           <form onSubmit={handleSubmit}>
             <input
               type="text"
