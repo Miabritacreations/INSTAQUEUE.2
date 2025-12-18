@@ -10,36 +10,64 @@ const Preloader: React.FC<PreloaderProps> = ({ loading }) => {
 
   return (
     <div className="preloader">
+      {/* Animated background particles */}
+      <div className="preloader-particles">
+        {[...Array(20)].map((_, i) => (
+          <div key={i} className="particle" style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 3}s`,
+            animationDuration: `${3 + Math.random() * 4}s`
+          }}></div>
+        ))}
+      </div>
+
       <div className="preloader-content">
+        {/* Logo with animated queue icon */}
         <div className="preloader-logo">
-          <div className="logo-circle">
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="50" cy="50" r="45" className="logo-circle-bg" />
-              <path
-                d="M30 50 L45 50 L45 30 L55 30 L55 70 L45 70 L45 60 L30 60 Z"
-                className="logo-i"
-                fill="currentColor"
-              />
-              <circle cx="70" cy="35" r="8" className="logo-q-dot" fill="currentColor" />
-              <path
-                d="M70 45 C75 45, 80 50, 80 55 C80 60, 75 65, 70 65 C65 65, 60 60, 60 55 C60 50, 65 45, 70 45 M72 62 L78 68"
-                className="logo-q"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="3"
-              />
-            </svg>
+          <div className="logo-container">
+            <div className="queue-icon">
+              <div className="queue-person queue-person-1"></div>
+              <div className="queue-person queue-person-2"></div>
+              <div className="queue-person queue-person-3"></div>
+            </div>
+            <div className="logo-text-wrapper">
+              <h1 className="preloader-title">
+                <span className="title-letter" style={{ animationDelay: '0s' }}>I</span>
+                <span className="title-letter" style={{ animationDelay: '0.1s' }}>n</span>
+                <span className="title-letter" style={{ animationDelay: '0.2s' }}>s</span>
+                <span className="title-letter" style={{ animationDelay: '0.3s' }}>t</span>
+                <span className="title-letter" style={{ animationDelay: '0.4s' }}>a</span>
+                <span className="title-letter highlight" style={{ animationDelay: '0.5s' }}>Q</span>
+                <span className="title-letter" style={{ animationDelay: '0.6s' }}>u</span>
+                <span className="title-letter" style={{ animationDelay: '0.7s' }}>e</span>
+                <span className="title-letter" style={{ animationDelay: '0.8s' }}>u</span>
+                <span className="title-letter" style={{ animationDelay: '0.9s' }}>e</span>
+              </h1>
+              <p className="subtitle">Smart Campus Queue Management</p>
+            </div>
           </div>
-          <h1 className="preloader-title">InstaQueue</h1>
         </div>
         
-        <div className="preloader-spinner">
-          <div className="spinner-ring"></div>
-          <div className="spinner-ring"></div>
-          <div className="spinner-ring"></div>
+        {/* Creative loading animation */}
+        <div className="preloader-animation">
+          <div className="loading-dots">
+            <div className="dot dot-1"></div>
+            <div className="dot dot-2"></div>
+            <div className="dot dot-3"></div>
+          </div>
+          <div className="progress-bar">
+            <div className="progress-fill"></div>
+          </div>
         </div>
         
-        <p className="preloader-text">Loading your experience...</p>
+        <p className="preloader-text">
+          <span className="loading-text">Preparing your dashboard</span>
+          <span className="loading-dots-text">
+            <span>.</span>
+            <span>.</span>
+            <span>.</span>
+          </span>
+        </p>
       </div>
     </div>
   );
