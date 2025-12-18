@@ -59,8 +59,13 @@ CREATE TABLE feedback (
 ) ENGINE=InnoDB;
 
 -- sample departments
+-- sample departments
 INSERT INTO departments (name, description) VALUES
-('Registrar', 'Academic records, transcripts, registration'),
-('Finance / Fees Office', 'Payments and financial enquiries'),
-('ICT / Technical Support', 'IT help desk'),
-('Library Services', 'Library and borrowing');
+('Registrar', 'Handles all academic records, enrollment, and certification matters.'),
+('Finance / Fees Office', 'Manages student financial records, payments, and billing issues.'),
+('ICT / Technical Support', 'Provides technical support for campus digital systems and devices.'),
+('Library Services', 'Supports academic research and learning resources.'),
+('Health Unit', 'Offers healthcare and wellness services to students.'),
+('Student Affairs / Dean of Students', 'Handles student welfare, accommodation, and extracurricular matters.'),
+('Examination Office', 'Manages examination processes and assessment records.'),
+('Admissions Office', 'Handles admission-related processes and student onboarding');

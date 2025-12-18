@@ -1,9 +1,10 @@
 <?php
 // config.php
-$DB_HOST = '127.0.0.1';
-$DB_NAME = 'instaqueue';
-$DB_USER = 'root';
-$DB_PASS = ''; // set your XAMPP MySQL root password if any
+// Read DB settings from environment variables (works with Docker Compose)
+$DB_HOST = getenv('DB_HOST') ?: '127.0.0.1';
+$DB_NAME = getenv('DB_NAME') ?: 'instaqueue';
+$DB_USER = getenv('DB_USER') ?: 'root';
+$DB_PASS = getenv('DB_PASS') ?: '';
 
 try {
   $pdo = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME;charset=utf8mb4", $DB_USER, $DB_PASS, [
