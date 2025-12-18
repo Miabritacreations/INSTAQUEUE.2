@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaLightbulb, FaMapPin, FaBell } from 'react-icons/fa6';
 import { HiSparkles, HiCheckCircle, HiClock, HiExclamationCircle, HiChartBar } from 'react-icons/hi2';
-import { MdArrowForward, MdPerson, MdAttachMoney, MdComputer, MdBook, MdHealthAndSafety, MdEmojiPeople, MdBallot, MdSchool } from 'react-icons/md';
+import { MdArrowForward, MdPerson, MdAttachMoney, MdComputer, MdBook, MdHealthAndSafety, MdEmojiPeople, MdBallot, MdSchool, MdPhotoCamera } from 'react-icons/md';
 import { BiCheckCircle } from 'react-icons/bi';
 import { BsArrowRight } from 'react-icons/bs';
 import '../styles/LandingPage.css';
@@ -88,7 +88,7 @@ export function LandingPage() {
         {/* Image Credit Section */}
         <div className="hero-credit">
           <div className="credit-badge">
-            <span className="credit-icon">📸</span>
+            <span className="credit-icon"><MdPhotoCamera /></span>
             <div className="credit-content">
               <p className="credit-label">Featured Campus</p>
               <a 
