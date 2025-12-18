@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #192C57 0%, #0d1629 100%);
 }
 
 .auth-card {
@@ -36,23 +36,24 @@
 
 .auth-card input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #CBAE2D;
+  box-shadow: 0 0 0 3px rgba(203, 174, 45, 0.1);
 }
 
 .auth-card button {
   padding: 0.75rem;
-  background: #667eea;
-  color: white;
+  background: #CBAE2D;
+  color: #192C57;
   border: none;
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.3s;
+  font-weight: 600;
 }
 
 .auth-card button:hover:not(:disabled) {
-  background: #764ba2;
+  background: #d4bc4a;
 }
 
 .auth-card button:disabled {
@@ -67,7 +68,7 @@
 }
 
 .auth-card a {
-  color: #667eea;
+  color: #CBAE2D;
   text-decoration: none;
 }
 
