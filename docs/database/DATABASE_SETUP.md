@@ -345,6 +345,65 @@ Database: instaqueue
 
 > ⚠️ **For Production**: Use strong, unique passwords and configure proper user permissions!
 
+## Creating Database User (Local Development)
+
+For local development environments, it's recommended to create a dedicated database user instead of using the root account.
+
+### Step 1: Access MariaDB
+
+```bash
+sudo mysql
+```
+
+### Step 2: Create New Database User
+
+Run these SQL commands inside the MariaDB CLI:
+
+```sql
+CREATE USER 'instaqueue'@'localhost' IDENTIFIED BY 'instaqueue123';
+GRANT ALL PRIVILEGES ON instaqueue.* TO 'instaqueue'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
+**Created User Credentials:**
+- **Username**: `instaqueue`
+- **Password**: `instaqueue123`
+- **Host**: `localhost`
+- **Database**: `instaqueue`
+
+### Step 3: Update Environment Configuration
+
+Update your `.env` file in the `backend/` directory:
+
+```env
+# Database
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=instaqueue
+DB_PASSWORD=instaqueue123
+DB_NAME=instaqueue
+```
+
+### Step 4: Verify Connection
+
+Test the connection:
+
+```bash
+mysql -u instaqueue -p instaqueue -h localhost
+```
+
+When prompted, enter password: `instaqueue123`
+
+If successful, you should see the MariaDB prompt. Type `EXIT;` to close.
+
+### Why Use a Dedicated User?
+
+✅ Better security - the root account is not exposed in configuration files  
+✅ Limited privileges - the user only has access to the instaqueue database  
+✅ Production-ready approach - easier to migrate to production  
+✅ Easier credential rotation - can change password without affecting root
+
 ## Next Steps
 
 1. Start the backend server: `cd backend && npm run dev`
