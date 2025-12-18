@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { io } from 'socket.io-client';
 import { appointmentService } from '../services/api';
 import { Appointment } from '../types';
-import './Dashboard.css';
+import '../styles/Dashboard.css';
 
 export const AdminDashboard: React.FC = () => {
   const [queues, setQueues] = useState<{ [key: number]: Appointment[] }>({});

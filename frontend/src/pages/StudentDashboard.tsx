@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { appointmentService } from '../services/api';
 import { Appointment } from '../types';
-import './Dashboard.css';
+import '../styles/Dashboard.css';
 
 export const StudentDashboard: React.FC = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
