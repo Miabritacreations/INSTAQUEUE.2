@@ -11,6 +11,8 @@ import { BookAppointment } from '../pages/BookAppointment';
 import { Notifications } from '../pages/Notifications';
 import { Profile } from '../pages/Profile';
 import { Feedback } from '../pages/Feedback';
+import Privacy from '../pages/Privacy';
+import Terms from '../pages/Terms';
 
 export function AppRouter() {
   return (
@@ -20,6 +22,8 @@ export function AppRouter() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
           <Route path="/dashboard" element={<ProtectedRoute element={<StudentDashboard />} />} />
           <Route path="/appointments" element={<ProtectedRoute element={<Appointments />} />} />
           <Route path="/book-appointment" element={<ProtectedRoute element={<BookAppointment />} />} />

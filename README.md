@@ -93,15 +93,36 @@ node backend/dist/seed.js
 ### Authentication
 - `POST /api/auth/register` - Register new user
 - `POST /api/auth/login` - Login user
-- `GET /api/auth/profile` - Get user profile
+- `POST /api/auth/logout` - Logout user (requires auth)
+- `GET /api/auth/profile` - Get user profile (requires auth)
+- `PUT /api/auth/profile` - Update user profile (requires auth)
 
 ### Appointments
-- `POST /api/appointments` - Create appointment
-- `GET /api/appointments/mine` - Get user's appointments
-- `GET /api/appointments/queue?department_id=X` - Get today's queue
-- `GET /api/appointments/next?department_id=X` - Get next pending
-- `PUT /api/appointments/status` - Update appointment status (Admin)
-- `PUT /api/appointments/cancel` - Cancel appointment
+- `POST /api/appointments` - Create appointment (requires auth)
+- `GET /api/appointments/mine` - Get user's appointments (requires auth)
+- `GET /api/appointments/stats` - Get user's appointment statistics (requires auth)
+- `GET /api/appointments/queue?department_id=X` - Get today's queue (requires auth)
+- `GET /api/appointments/next?department_id=X` - Get next pending (requires auth)
+- `PUT /api/appointments/status` - Update appointment status (Admin only)
+- `PUT /api/appointments/cancel` - Cancel appointment (requires auth)
+
+### Departments
+- `GET /api/departments` - Get all departments
+- `GET /api/departments/:id` - Get department by ID
+
+### Feedback
+- `POST /api/feedback` - Submit feedback (requires auth)
+- `GET /api/feedback/mine` - Get user's feedback history (requires auth)
+- `GET /api/feedback/all` - Get all feedback (Admin only)
+- `GET /api/feedback/stats/:department_id` - Get department feedback stats (Admin only)
+
+### Notifications
+- `GET /api/notifications` - Get user's notifications (requires auth)
+- `GET /api/notifications/unread-count` - Get unread notification count (requires auth)
+- `PUT /api/notifications/:id/read` - Mark notification as read (requires auth)
+- `PUT /api/notifications/mark-all-read` - Mark all notifications as read (requires auth)
+- `POST /api/notifications` - Create notification (requires auth)
+- `DELETE /api/notifications/:id` - Delete notification (requires auth)
 
 ## Environment Variables
 
@@ -127,13 +148,35 @@ VITE_API_URL=http://localhost:5000/api
 
 ## Features
 
-✅ **User Authentication** - JWT-based auth with bcryptjs password hashing
-✅ **Real-time Queue Updates** - Socket.io for live notifications
-✅ **Caching** - Redis for performance optimization
-✅ **Role-based Access** - Student & Admin roles
-✅ **Responsive UI** - Mobile-friendly React interface
-✅ **TypeScript** - Full type safety
-✅ **Docker** - Easy deployment & scaling
+### Core Features
+✅ **User Authentication** - JWT-based auth with bcryptjs password hashing, secure login/logout
+✅ **Real-time Queue Updates** - Live appointment queue management with status tracking
+✅ **Role-based Access** - Student & Admin roles with different permissions
+✅ **Department Management** - Browse and filter by departments
+✅ **Appointment Scheduling** - Book appointments with preferred dates and times
+✅ **Notification System** - Real-time notifications with read/unread tracking and badge count
+✅ **Feedback System** - Rate services with star ratings (1-5) and provide detailed feedback
+✅ **Profile Management** - Update personal information, department, and year of study
+
+### Dashboard Features
+✅ **Student Dashboard** - Real-time statistics showing total, pending, confirmed, and completed appointments
+✅ **Next Appointment Card** - Displays upcoming appointment with full details
+✅ **Quick Actions** - Shortcuts to book appointments, view queue, and submit feedback
+✅ **Recent Activity** - Timeline of last 5 appointments
+
+### User Experience
+✅ **Toast Notifications** - Loading, success, and error feedback for all actions
+✅ **Real-time Badge Count** - Live notification count in navbar
+✅ **Password Visibility Toggle** - Show/hide password functionality
+✅ **Enhanced Date Formatting** - Human-readable dates and "time ago" displays
+✅ **Responsive UI** - Mobile-friendly interface that works on all devices
+✅ **Loading States** - Visual feedback during async operations
+
+### Technical Features
+✅ **TypeScript** - Full type safety across frontend and backend
+✅ **Redis Caching** - Performance optimization
+✅ **Docker Support** - Easy deployment & scaling
+✅ **API Services** - Modular service layer for all API calls
 
 ## Default Credentials
 
