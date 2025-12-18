@@ -29,38 +29,49 @@ export const Register: React.FC = () => {
 
   return (
     <div className="auth-container">
-      <div className="auth-card">
-        <h1>Register</h1>
-        {error && <div className="error">{error}</div>}
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? 'Registering...' : 'Register'}
-          </button>
-        </form>
-        <p>
-          Already have an account? <a href="/login">Login</a>
-        </p>
+      <nav className="auth-navbar">
+        <div className="auth-nav-container">
+          <h1 onClick={() => navigate('/')}>InstaQueue</h1>
+          <div className="auth-nav-links">
+            <a href="/">Home</a>
+            <a href="/login">Sign In</a>
+          </div>
+        </div>
+      </nav>
+      <div className="auth-content">
+        <div className="auth-card">
+          <h1>Create Account</h1>
+          {error && <div className="error">{error}</div>}
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button type="submit" disabled={loading}>
+              {loading ? 'Registering...' : 'Register'}
+            </button>
+          </form>
+          <p>
+            Already have an account? <a href="/login">Sign in</a>
+          </p>
+        </div>
       </div>
     </div>
   );

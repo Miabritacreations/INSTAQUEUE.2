@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { appointmentService } from '../services/api';
 import { Appointment } from '../types';
 import './Dashboard.css';
@@ -6,6 +8,8 @@ import './Dashboard.css';
 export const StudentDashboard: React.FC = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const { logout } = useAuth();
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -35,30 +39,46 @@ export const StudentDashboard: React.FC = () => {
 
   if (loading) return <div className="dashboard-container">Loading...</div>;
 
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
-    <div className="dashboard-container">
-      <h1>My Appointments</h1>
-      {appointments.length === 0 ? (
-        <p>No appointments yet</p>
-      ) : (
-        <div className="appointments-grid">
-          {appointments.map((apt) => (
-            <div key={apt.id} className={`appointment-card status-${apt.status}`}>
-              <h3>{apt.department}</h3>
-              <p><strong>Queue #:</strong> {apt.queue_number}</p>
-              <p><strong>Date:</strong> {apt.date}</p>
-              <p><strong>Time:</strong> {apt.time}</p>
-              <p><strong>Status:</strong> {apt.status}</p>
-              {apt.reason && <p><strong>Reason:</strong> {apt.reason}</p>}
-              {apt.status === 'pending' && (
-                <button onClick={() => handleCancel(apt.id)} className="btn-danger">
-                  Cancel
-                </button>
-              )}
-            </div>
-          ))}
+    <>
+      <nav className="dashboard-navbar">
+        <div className="dashboard-nav-container">
+          <h1 onClick={() => navigate('/')}>InstaQueue</h1>
+          <div className="dashboard-nav-links">
+            <span>Student Dashboard</span>
+            <button onClick={handleLogout} className="logout-btn">Logout</button>
+          </div>
         </div>
-      )}
-    </div>
+      </nav>
+      <div className="dashboard-container">
+        <h1>My Appointments</h1>
+        {appointments.length === 0 ? (
+          <p>No appointments yet</p>
+        ) : (
+          <div className="appointments-grid">
+            {appointments.map((apt) => (
+              <div key={apt.id} className={`appointment-card status-${apt.status}`}>
+                <h3>{apt.department}</h3>
+                <p><strong>Queue #:</strong> {apt.queue_number}</p>
+                <p><strong>Date:</strong> {apt.date}</p>
+                <p><strong>Time:</strong> {apt.time}</p>
+                <p><strong>Status:</strong> {apt.status}</p>
+                {apt.reason && <p><strong>Reason:</strong> {apt.reason}</p>}
+                {apt.status === 'pending' && (
+                  <button onClick={() => handleCancel(apt.id)} className="btn-danger">
+                    Cancel
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
