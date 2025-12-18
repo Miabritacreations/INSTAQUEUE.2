@@ -7,21 +7,56 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <main class="card">
-    <h1>InstaQueue</h1>
-    <p>Smart Campus Queue & Appointment System</p>
-    <div class="actions">
-      <a class="btn" href="register.html">Register</a>
-      <a class="btn" href="login.html">Login</a>
-      <a class="btn" href="dashboard-student.html">Student Dashboard</a>
-      <a class="btn" href="dashboard-admin.html">Admin Dashboard</a>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="/">Insta<span style="color:var(--navy)">Queue</span></a>
+      <nav class="nav-links">
+        <a href="register.html">Register</a>
+        <a href="login.html">Login</a>
+        <a href="dashboard-student.html">Student</a>
+        <a href="dashboard-admin.html">Admin</a>
+      </nav>
     </div>
-    <section style="margin-top:18px;">
-      <h3>About InstaQueue</h3>
-      <p>InstaQueue is a lightweight campus queue and appointment management system. Students can register, book appointments with campus departments, and receive a sequential queue number. Admins can view and serve queues, update appointment status, and monitor simple analytics.</p>
-      <p>Core services include Registrar, Finance, ICT Support, Library Services, Health Unit, Student Affairs, Examination Office, and Admissions.</p>
-    </section>
-  </main>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <h1>Smart Campus Queue & Appointment System</h1>
+      <p class="lead">Book appointments, get a sequential queue number, and monitor waiting times across campus departments. Fast, simple, and mobile-friendly.</p>
+      <div class="cta-row">
+        <a href="register.html"><button class="btn-primary">Get Started</button></a>
+        <a href="login.html"><button class="btn-outline">Login</button></a>
+      </div>
+      <div style="margin-top:18px;" class="small">Recommended services: Registrar, Finance, ICT, Library, Health Unit, Student Affairs, Examination, Admissions.</div>
+    </div>
+
+    <aside class="hero-side">
+      <div class="quick-card">
+        <h4>Quick Actions</h4>
+        <button onclick="location.href='dashboard-student.html'" class="btn-primary">Student Dashboard</button>
+        <button onclick="location.href='dashboard-admin.html'" style="background:transparent;border:2px solid var(--gold);color:var(--navy);padding:10px;border-radius:8px;">Admin Dashboard</button>
+      </div>
+      <div style="margin-top:12px" class="card small">
+        <strong>Contact</strong>
+        <div>support@instaqueue.local</div>
+        <div>+1 (555) 123-4567</div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="services">
+    <h2 style="text-align:center;margin-bottom:12px;color:var(--navy)">Campus Services</h2>
+    <div class="services-grid">
+      <div class="service"><h3>Registrar</h3><p>Handles academic records, enrollment, and certification matters.</p></div>
+      <div class="service"><h3>Finance / Fees Office</h3><p>Manages student financial records, payments, and billing issues.</p></div>
+      <div class="service"><h3>ICT / Technical Support</h3><p>Provides technical support for campus digital systems and devices.</p></div>
+      <div class="service"><h3>Library Services</h3><p>Supports academic research and learning resources.</p></div>
+      <div class="service"><h3>Health Unit</h3><p>Offers healthcare and wellness services to students.</p></div>
+      <div class="service"><h3>Student Affairs</h3><p>Handles student welfare, accommodation, and extracurricular matters.</p></div>
+      <div class="service"><h3>Examination Office</h3><p>Manages examination processes and assessment records.</p></div>
+      <div class="service"><h3>Admissions Office</h3><p>Handles admission-related processes and student onboarding.</p></div>
+    </div>
+  </section>
   <script src="js/script.js"></script>
 </body>
 </html>
