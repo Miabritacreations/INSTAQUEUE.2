@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>InstaQueue</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-d8fS2QKq3M4Xq2sC0kVw0zY5OZz1s5QfQ+X0xk3xkP1G9b1Yq5z1+Z3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
   <header class="site-header">
@@ -46,17 +47,32 @@
 
   <section class="services">
     <h2 style="text-align:center;margin-bottom:12px;color:var(--navy)">Campus Services</h2>
-    <div class="services-grid">
-      <div class="service"><h3>Registrar</h3><p>Handles academic records, enrollment, and certification matters.</p></div>
-      <div class="service"><h3>Finance / Fees Office</h3><p>Manages student financial records, payments, and billing issues.</p></div>
-      <div class="service"><h3>ICT / Technical Support</h3><p>Provides technical support for campus digital systems and devices.</p></div>
-      <div class="service"><h3>Library Services</h3><p>Supports academic research and learning resources.</p></div>
-      <div class="service"><h3>Health Unit</h3><p>Offers healthcare and wellness services to students.</p></div>
-      <div class="service"><h3>Student Affairs</h3><p>Handles student welfare, accommodation, and extracurricular matters.</p></div>
-      <div class="service"><h3>Examination Office</h3><p>Manages examination processes and assessment records.</p></div>
-      <div class="service"><h3>Admissions Office</h3><p>Handles admission-related processes and student onboarding.</p></div>
-    </div>
+    <div id="servicesGrid" class="services-grid"></div>
   </section>
+  <!-- Booking modal -->
+  <div id="bookingModal" class="modal-backdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h3>Book Appointment</h3>
+        <button class="close" onclick="closeBookingModal()"><i class="fa fa-times"></i></button>
+      </div>
+      <form id="bookForm">
+        <input type="hidden" name="department_id" id="modalDeptId">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+          <div class="service-icon"><i class="fa fa-calendar"></i></div>
+          <select id="serviceSelect" name="service" required style="flex:1"></select>
+        </div>
+        <input type="date" name="date" required>
+        <input type="time" name="time" required>
+        <input name="reason" placeholder="Reason (optional)">
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
+          <button type="button" class="btn-outline" onclick="closeBookingModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Book Appointment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="js/script.js"></script>
 </body>
 </html>

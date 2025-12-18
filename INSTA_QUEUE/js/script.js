@@ -37,11 +37,100 @@ if (loginForm) {
 async function loadDepartments(selectId) {
   const sel = document.getElementById(selectId);
   if (!sel) return;
-  const depts = await api('backend/departments.php', {}, 'GET');
+  let depts = [];
+  try {
+    depts = await api('backend/departments.php', {}, 'GET') || [];
+  } catch(e){ depts = []; }
+  // fallback static departments
+  const fallback = [
+    {id:1,name:'Registrar',description:'Records & enrollment'},
+    {id:2,name:'Finance / Fees Office',description:'Payments & billing'},
+    {id:3,name:'ICT / Technical Support',description:'Tech support'},
+    {id:4,name:'Library Services',description:'Research & borrowing'},
+    {id:5,name:'Health Unit',description:'Medical services'},
+    {id:6,name:'Student Affairs',description:'Welfare & housing'},
+    {id:7,name:'Examination Office',description:'Exams & results'},
+    {id:8,name:'Admissions Office',description:'Applications'}
+  ];
+  if (!Array.isArray(depts) || depts.length===0) depts = fallback;
   sel.innerHTML = '';
   depts.forEach(d=>{ const opt = document.createElement('option'); opt.value=d.id; opt.textContent=d.name; sel.appendChild(opt); });
 }
 loadDepartments('deptSelect'); loadDepartments('fbDept');
+
+// Render services / department cards on landing and wire to booking modal
+async function renderDepartmentsGrid(){
+  const grid = document.getElementById('servicesGrid');
+  if (!grid) return;
+  let depts = [];
+  try {
+    depts = await api('backend/departments.php', {}, 'GET') || [];
+  } catch(e){ depts = []; }
+  const fallback = [
+    {id:1,name:'Registrar',description:'Handles academic records, enrollment, and certification matters.'},
+    {id:2,name:'Finance / Fees Office',description:'Manages student financial records, payments, and billing issues.'},
+    {id:3,name:'ICT / Technical Support',description:'Provides technical support for campus digital systems and devices.'},
+    {id:4,name:'Library Services',description:'Supports academic research and learning resources.'},
+    {id:5,name:'Health Unit',description:'Offers healthcare and wellness services to students.'},
+    {id:6,name:'Student Affairs',description:'Handles student welfare, accommodation, and extracurricular matters.'},
+    {id:7,name:'Examination Office',description:'Manages examination processes and assessment records.'},
+    {id:8,name:'Admissions Office',description:'Handles admission-related processes and student onboarding.'}
+  ];
+  if (!Array.isArray(depts) || depts.length===0) depts = fallback;
+  grid.innerHTML = '';
+  // lightweight service suggestions per department (client-side fallback)
+  const suggestions = {
+    'Registrar':['Records & Transcripts','Registration Help','Certificates'],
+    'Finance / Fees Office':['Fees Payment','Account Inquiry','Scholarships'],
+    'ICT / Technical Support':['Password Reset','Software Access','Device Support'],
+    'Library Services':['Borrowing','Research Help','Study Spaces'],
+    'Health Unit':['Consultation','Vaccination','Medical Records'],
+    'Student Affairs':['Accommodation','Counselling','Clubs & Societies'],
+    'Examination Office':['Exam Queries','Results','Invigilation'],
+    'Admissions Office':['Application Status','Documents','Offers']
+  };
+  depts.forEach(d=>{
+    const el = document.createElement('div'); el.className='service card pop fade-in';
+    const icon = document.createElement('div'); icon.className='service-icon'; icon.innerHTML = '<i class="fa fa-building-columns"></i>';
+    const h = document.createElement('h3'); h.textContent = d.name;
+    const p = document.createElement('p'); p.textContent = d.description || '';
+    el.appendChild(icon); el.appendChild(h); el.appendChild(p);
+    el.addEventListener('click', ()=>openBookingModal(d.id,d.name));
+    grid.appendChild(el);
+  });
+}
+renderDepartmentsGrid();
+
+function openBookingModal(deptId, deptName){
+  const backdrop = document.getElementById('bookingModal');
+  if (!backdrop) return;
+  document.getElementById('modalDeptId').value = deptId;
+  // populate services dropdown using suggestions or fallback
+  const sel = document.getElementById('serviceSelect');
+  sel.innerHTML = '';
+  const suggestions = {
+    'Registrar':['Records & Transcripts','Registration Help','Certificates'],
+    'Finance / Fees Office':['Fees Payment','Account Inquiry','Scholarships'],
+    'ICT / Technical Support':['Password Reset','Software Access','Device Support'],
+    'Library Services':['Borrowing','Research Help','Study Spaces'],
+    'Health Unit':['Consultation','Vaccination','Medical Records'],
+    'Student Affairs':['Accommodation','Counselling','Clubs & Societies'],
+    'Examination Office':['Exam Queries','Results','Invigilation'],
+    'Admissions Office':['Application Status','Documents','Offers']
+  };
+  // try to match by visible name
+  const visibleName = deptName;
+  const opts = suggestions[visibleName] || Object.values(suggestions).flat() || ['General Inquiry'];
+  opts.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; sel.appendChild(o); });
+  backdrop.style.display = 'flex';
+  setTimeout(()=> document.querySelector('.modal').classList.add('open'), 20);
+}
+
+function closeBookingModal(){
+  const backdrop = document.getElementById('bookingModal'); if (!backdrop) return;
+  document.querySelector('.modal').classList.remove('open');
+  setTimeout(()=> backdrop.style.display='none', 220);
+}
 
 // student booking
 const bookForm = document.getElementById('bookForm');
@@ -51,8 +140,14 @@ if (bookForm) {
     const f = new FormData(bookForm);
     const data = Object.fromEntries(f);
     const res = await api('backend/appointments.php', data);
-    alert(res.error?res.error:`Booked! Queue #${res.queue_number}`);
-    if (res.success) loadMyAppointments();
+    if (res.error) {
+      alert(res.error);
+    } else {
+      alert(`Booked! Queue #${res.queue_number}`);
+      try{ closeBookingModal(); }catch(e){}
+      if (typeof loadMyAppointments === 'function') loadMyAppointments();
+      if (typeof loadQueues === 'function') loadQueues();
+    }
   });
 }
 

@@ -5,8 +5,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Admin Dashboard - InstaQueue</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-d8fS2QKq3M4Xq2sC0kVw0zY5OZz1s5QfQ+X0xk3xkP1G9b1Yq5z1+Z3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="/">Insta<span style="color:var(--navy)">Queue</span></a>
+      <nav class="nav-links"><a href="/">Home</a><a href="dashboard-student.html">Student</a></nav>
+    </div>
+  </header>
+  <div class="page-wrap">
   <main class="card">
     <h2>Admin Dashboard</h2>
     <div id="adminInfo"></div>
@@ -19,6 +27,7 @@
       <div id="reports"></div>
     </section>
   </main>
+  </div>
   <script src="js/script.js"></script>
 </body>
 </html>
