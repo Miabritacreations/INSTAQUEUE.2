@@ -1,32 +1,89 @@
-version: '3.8'
+version: '3.9'
+
 services:
-  web:
+  # Node.js Backend
+  backend:
     build:
-      context: ./
-      dockerfile: docker/php/Dockerfile
-    container_name: instaqueue_web
-    volumes:
-      - ./INSTA_QUEUE:/var/www/html:cached
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: instaqueue_backend
     ports:
-      - "8000:80"
+      - "5000:5000"
     environment:
-      - DB_HOST=db
-      - DB_NAME=instaqueue
+      - NODE_ENV=production
+      - PORT=5000
+      - DB_HOST=mariadb
+      - DB_PORT=3306
       - DB_USER=root
-      - DB_PASS=rootpassword
+      - DB_PASSWORD=rootpassword
+      - DB_NAME=instaqueue
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=your_jwt_secret_key_change_this_in_production
+      - CORS_ORIGIN=http://localhost:3000
     depends_on:
-      - db
-  db:
-    image: mysql:8.0
-    container_name: instaqueue_db
+      - mariadb
+      - redis
+    networks:
+      - instaqueue-network
+    restart: unless-stopped
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: instaqueue_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://localhost:5000/api
+    depends_on:
+      - backend
+    networks:
+      - instaqueue-network
+    restart: unless-stopped
+
+  # MariaDB Database
+  mariadb:
+    image: mariadb:11-alpine
+    container_name: instaqueue_mariadb
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: instaqueue
     volumes:
-      - db_data:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql
       - ./INSTA_QUEUE/database/instaqueue.sql:/docker-entrypoint-initdb.d/instaqueue.sql:ro
     ports:
       - "3306:3306"
+    networks:
+      - instaqueue-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: instaqueue_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - instaqueue-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      timeout: 3s
+      retries: 5
+
+networks:
+  instaqueue-network:
+    driver: bridge
 
 volumes:
-  db_data: {}
+  mariadb_data:
+  redis_data:

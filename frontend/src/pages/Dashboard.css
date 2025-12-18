@@ -1,0 +1,132 @@
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.dashboard-container h1 {
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.appointments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.appointment-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #667eea;
+}
+
+.appointment-card.status-pending {
+  border-left-color: #ffc107;
+}
+
+.appointment-card.status-in_service {
+  border-left-color: #17a2b8;
+}
+
+.appointment-card.status-completed {
+  border-left-color: #28a745;
+}
+
+.appointment-card.status-cancelled {
+  border-left-color: #dc3545;
+  opacity: 0.7;
+}
+
+.appointment-card h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.appointment-card p {
+  margin: 0.5rem 0;
+  color: #666;
+}
+
+.appointment-card button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #c82333;
+}
+
+.queues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.queue-section {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.queue-section h2 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.queue-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.queue-item {
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+  border-left: 3px solid #667eea;
+}
+
+.queue-item.status-pending {
+  border-left-color: #ffc107;
+}
+
+.queue-item.status-in_service {
+  background: #e7f3ff;
+  border-left-color: #17a2b8;
+}
+
+.queue-item.status-completed {
+  background: #e8f5e9;
+  border-left-color: #28a745;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 0.75rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-primary:hover {
+  background: #764ba2;
+}
