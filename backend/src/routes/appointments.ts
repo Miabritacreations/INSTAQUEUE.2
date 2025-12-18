@@ -7,6 +7,7 @@ const router = Router();
 router.use(authMiddleware);
 
 router.post('/', AppointmentController.createAppointment);
+router.get('/stats', AppointmentController.getStats);
 router.get('/mine', AppointmentController.getUserAppointments);
 router.get('/queue', AppointmentController.getTodayQueue);
 router.get('/next', AppointmentController.getNextAppointment);

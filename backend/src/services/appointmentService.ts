@@ -145,4 +145,81 @@ export class AppointmentService {
   static async cancelAppointment(id: number): Promise<boolean> {
     return this.updateAppointmentStatus(id, 'cancelled');
   }
+
+  static async getUserStats(userId: number): Promise<any> {
+    const connection = await pool.getConnection();
+    try {
+      // Get total appointments count
+      const [totalResult] = await connection.query(
+        'SELECT COUNT(*) as total FROM appointments WHERE user_id = ?',
+        [userId]
+      );
+      const total = (totalResult as any[])[0].total;
+
+      // Get pending appointments count
+      const [pendingResult] = await connection.query(
+        'SELECT COUNT(*) as pending FROM appointments WHERE user_id = ? AND status = ?',
+        [userId, 'pending']
+      );
+      const pending = (pendingResult as any[])[0].pending;
+
+      // Get completed appointments count
+      const [completedResult] = await connection.query(
+        'SELECT COUNT(*) as completed FROM appointments WHERE user_id = ? AND status = ?',
+        [userId, 'completed']
+      );
+      const completed = (completedResult as any[])[0].completed;
+
+      // Get confirmed appointments count
+      const [confirmedResult] = await connection.query(
+        'SELECT COUNT(*) as confirmed FROM appointments WHERE user_id = ? AND status = ?',
+        [userId, 'confirmed']
+      );
+      const confirmed = (confirmedResult as any[])[0].confirmed;
+
+      // Get upcoming appointments (next 7 days)
+      const [upcomingResult] = await connection.query(
+        `SELECT COUNT(*) as upcoming FROM appointments 
+         WHERE user_id = ? AND status IN ('pending', 'confirmed') 
+         AND date >= CURDATE() AND date <= DATE_ADD(CURDATE(), INTERVAL 7 DAY)`,
+        [userId]
+      );
+      const upcoming = (upcomingResult as any[])[0].upcoming;
+
+      // Get recent appointments (last 5)
+      const [recentAppointments] = await connection.query(
+        `SELECT a.*, d.name as department 
+         FROM appointments a 
+         JOIN departments d ON d.id = a.department_id 
+         WHERE a.user_id = ? 
+         ORDER BY a.created_at DESC 
+         LIMIT 5`,
+        [userId]
+      );
+
+      // Get next appointment
+      const [nextAppointment] = await connection.query(
+        `SELECT a.*, d.name as department 
+         FROM appointments a 
+         JOIN departments d ON d.id = a.department_id 
+         WHERE a.user_id = ? AND status IN ('pending', 'confirmed') 
+         AND (date > CURDATE() OR (date = CURDATE() AND time >= CURTIME()))
+         ORDER BY a.date ASC, a.time ASC 
+         LIMIT 1`,
+        [userId]
+      );
+
+      return {
+        total,
+        pending,
+        completed,
+        confirmed,
+        upcoming,
+        recentAppointments,
+        nextAppointment: (nextAppointment as any[])[0] || null
+      };
+    } finally {
+      connection.release();
+    }
+  }
 }

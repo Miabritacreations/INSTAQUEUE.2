@@ -101,4 +101,17 @@ export class AppointmentController {
       res.status(500).json({ error: error.message });
     }
   }
+
+  static async getStats(req: Request, res: Response) {
+    try {
+      if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
+
+      const stats = await AppointmentService.getUserStats(req.user.id);
+      res.json({ stats });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }

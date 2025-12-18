@@ -30,6 +30,7 @@ export const appointmentService = {
   createAppointment: (department_id: number, date: string, time: string, reason: string) =>
     api.post('/appointments', { department_id, date, time, reason }),
   getUserAppointments: () => api.get('/appointments/mine'),
+  getStats: () => api.get('/appointments/stats'),
   getTodayQueue: (department_id: number) =>
     api.get(`/appointments/queue?department_id=${department_id}`),
   getNextAppointment: (department_id: number) =>
