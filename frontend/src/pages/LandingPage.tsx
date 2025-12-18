@@ -133,7 +133,7 @@ export function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="features-section">
+      <section id="features" className="features-section">
         <h2>Key Features</h2>
         <div className="features-grid">
           <div className="feature">
@@ -205,7 +205,7 @@ export function LandingPage() {
       </section>
 
       {/* Departments Section */}
-      <section className="departments-section">
+      <section id="departments" className="departments-section">
         <h2>Campus Departments We Serve</h2>
         <div className="departments-grid">
           <div className="dept-item">
@@ -252,7 +252,7 @@ export function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="how-it-works">
+      <section id="how-it-works" className="how-it-works">
         <h2>How It Works</h2>
         <div className="steps-container">
           <div className="step">
