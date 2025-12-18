@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaLightbulb, FaMapPin, FaBell } from 'react-icons/fa6';
+import Footer from '../components/Footer';
 import { HiSparkles, HiCheckCircle, HiClock, HiExclamationCircle, HiChartBar } from 'react-icons/hi2';
 import { MdArrowForward, MdPerson, MdAttachMoney, MdComputer, MdBook, MdHealthAndSafety, MdEmojiPeople, MdBallot, MdSchool, MdPhotoCamera } from 'react-icons/md';
 import { BiCheckCircle } from 'react-icons/bi';
@@ -296,37 +297,7 @@ export function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="landing-footer">
-        <div className="footer-content">
-          <div className="footer-section">
-            <h4>InstaQueue</h4>
-            <p>Smart campus queue management for modern universities.</p>
-          </div>
-          <div className="footer-section">
-            <h4>Quick Links</h4>
-            <ul>
-              <li><a href="#features">Features</a></li>
-              <li><a href="#departments">Departments</a></li>
-              <li><a href="#how-it-works">How It Works</a></li>
-            </ul>
-          </div>
-          <div className="footer-section">
-            <h4>Contact</h4>
-            <p>support@instaqueue.local</p>
-            <p>+1 (555) 123-4567</p>
-          </div>
-          <div className="footer-section">
-            <h4>Legal</h4>
-            <ul>
-              <li><Link to="/privacy">Privacy Policy</Link></li>
-              <li><Link to="/terms">Terms of Service</Link></li>
-            </ul>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>&copy; 2025 InstaQueue. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

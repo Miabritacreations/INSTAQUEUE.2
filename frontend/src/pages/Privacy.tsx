@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 import '../styles/Legal.css';
 
 const Privacy: React.FC = () => {
@@ -228,17 +229,15 @@ const Privacy: React.FC = () => {
           </section>
         </div>
 
-        <div className="legal-footer">
+        <div className="legal-acknowledgment">
           <p>
             By using InstaQueue, you acknowledge that you have read and understood this Privacy Policy.
           </p>
-          <div className="footer-links">
-            <Link to="/terms">Terms of Service</Link>
-            <span className="separator">•</span>
-            <Link to="/">Home</Link>
-          </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

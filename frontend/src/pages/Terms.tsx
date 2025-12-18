@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 import '../styles/Legal.css';
 
 const Terms: React.FC = () => {
@@ -317,17 +318,15 @@ const Terms: React.FC = () => {
           </section>
         </div>
 
-        <div className="legal-footer">
+        <div className="legal-acknowledgment">
           <p>
             Thank you for using InstaQueue responsibly!
           </p>
-          <div className="footer-links">
-            <Link to="/privacy">Privacy Policy</Link>
-            <span className="separator">•</span>
-            <Link to="/">Home</Link>
-          </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
