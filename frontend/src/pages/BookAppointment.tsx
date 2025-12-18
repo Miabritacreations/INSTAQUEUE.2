@@ -1,26 +1,43 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '../components/DashboardLayout';
+import { departmentService, appointmentService } from '../services/api';
 import { MdCalendarToday, MdAccessTime, MdPerson } from 'react-icons/md';
 import toast from 'react-hot-toast';
 import '../styles/BookAppointment.css';
 
+interface Department {
+  id: number;
+  name: string;
+  description: string;
+}
+
 export function BookAppointment() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    department: '',
+    department_id: '',
     date: '',
     time: '',
     reason: ''
   });
+  const [departments, setDepartments] = useState<Department[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const departments = [
-    'Computer Science',
-    'Mathematics',
-    'Physics',
-    'Chemistry',
-    'Biology',
-    'English',
-    'History'
-  ];
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await departmentService.getDepartments();
+        setDepartments(response.data.departments);
+      } catch (error) {
+        console.error('Failed to fetch departments:', error);
+        toast.error('Failed to load departments');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDepartments();
+  }, []);
 
   const timeSlots = [
     '9:00 AM', '10:00 AM', '11:00 AM',
@@ -28,17 +45,30 @@ export function BookAppointment() {
     '3:00 PM', '4:00 PM', '5:00 PM'
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.department || !formData.date || !formData.time) {
+    if (!formData.department_id || !formData.date || !formData.time) {
       toast.error('Please fill in all required fields');
       return;
     }
 
-    // Mock API call
-    toast.success('Appointment booked successfully!');
-    setFormData({ department: '', date: '', time: '', reason: '' });
+    try {
+      await appointmentService.createAppointment(
+        parseInt(formData.department_id),
+        formData.date,
+        formData.time,
+        formData.reason
+      );
+      toast.success('Appointment booked successfully!');
+      setFormData({ department_id: '', date: '', time: '', reason: '' });
+      
+      // Navigate to appointments page after 1 second
+      setTimeout(() => navigate('/appointments'), 1000);
+    } catch (error: any) {
+      console.error('Failed to book appointment:', error);
+      toast.error(error.response?.data?.error || 'Failed to book appointment');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -64,16 +94,17 @@ export function BookAppointment() {
                 Department *
               </label>
               <select
-                id="department"
-                name="department"
-                value={formData.department}
+                id="department_id"
+                name="department_id"
+                value={formData.department_id}
                 onChange={handleChange}
                 className="form-select"
                 required
+                disabled={loading}
               >
                 <option value="">Select a department</option>
                 {departments.map((dept) => (
-                  <option key={dept} value={dept}>{dept}</option>
+                  <option key={dept.id} value={dept.id}>{dept.name}</option>
                 ))}
               </select>
             </div>

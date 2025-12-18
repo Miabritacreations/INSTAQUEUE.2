@@ -6,6 +6,9 @@ import { createServer } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import authRoutes from './routes/auth';
 import appointmentRoutes from './routes/appointments';
+import departmentRoutes from './routes/departments';
+import feedbackRoutes from './routes/feedback';
+import notificationRoutes from './routes/notifications';
 import { authMiddleware } from './middleware/auth';
 import { redisClient } from './config/redis';
 
@@ -37,6 +40,9 @@ app.get('/health', (req: Request, res: Response) => {
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/appointments', authMiddleware, appointmentRoutes);
+app.use('/api/departments', departmentRoutes);
+app.use('/api/feedback', feedbackRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // Socket.IO for real-time updates
 io.on('connection', (socket) => {

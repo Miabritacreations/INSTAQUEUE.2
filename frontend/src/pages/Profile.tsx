@@ -1,19 +1,46 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DashboardLayout } from '../components/DashboardLayout';
+import { authService } from '../services/api';
 import { MdPerson, MdEmail, MdPhone, MdSchool, MdEdit } from 'react-icons/md';
 import toast from 'react-hot-toast';
 import '../styles/Profile.css';
 
 export function Profile() {
   const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
-    name: 'John Doe',
-    email: 'john.doe@student.edu',
-    phone: '+254 712 345 678',
-    studentId: 'ST2024001',
-    department: 'Computer Science',
-    year: '3rd Year'
+    name: '',
+    email: '',
+    phone: '',
+    student_id: '',
+    department: '',
+    year: ''
   });
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const fetchProfile = async () => {
+    try {
+      const response = await authService.getProfile();
+      const user = response.data.user;
+      setFormData({
+        name: user.name || '',
+        email: user.email || '',
+        phone: user.phone || '',
+        student_id: user.student_id || '',
+        department: user.department || '',
+        year: user.year || ''
+      });
+    } catch (error) {
+      console.error('Failed to fetch profile:', error);
+      toast.error('Failed to load profile');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
@@ -22,12 +49,39 @@ export function Profile() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock API call
-    toast.success('Profile updated successfully!');
-    setIsEditing(false);
+    
+    setSaving(true);
+    try {
+      await authService.updateProfile({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        department: formData.department,
+        year: formData.year
+      });
+      toast.success('Profile updated successfully!');
+      setIsEditing(false);
+      fetchProfile(); // Refresh profile data
+    } catch (error: any) {
+      console.error('Failed to update profile:', error);
+      toast.error(error.response?.data?.error || 'Failed to update profile');
+    } finally {
+      setSaving(false);
+    }
   };
+
+  if (loading) {
+    return (
+      <DashboardLayout>
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <p>Loading profile...</p>
+        </div>
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout>
@@ -49,7 +103,7 @@ export function Profile() {
               <MdPerson />
             </div>
             <h2 className="profile-name">{formData.name}</h2>
-            <p className="profile-id">{formData.studentId}</p>
+            {formData.student_id && <p className="profile-id">{formData.student_id}</p>}
           </div>
 
           <form onSubmit={handleSubmit} className="profile-form">
@@ -138,8 +192,8 @@ export function Profile() {
             </div>
 
             {isEditing && (
-              <button type="submit" className="save-btn">
-                Save Changes
+              <button type="submit" className="save-btn" disabled={saving}>
+                {saving ? 'Saving...' : 'Save Changes'}
               </button>
             )}
           </form>

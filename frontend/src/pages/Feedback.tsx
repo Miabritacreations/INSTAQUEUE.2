@@ -1,40 +1,69 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DashboardLayout } from '../components/DashboardLayout';
+import { departmentService, feedbackService } from '../services/api';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 import toast from 'react-hot-toast';
 import '../styles/Feedback.css';
+
+interface Department {
+  id: number;
+  name: string;
+  description: string;
+}
 
 export function Feedback() {
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
   const [formData, setFormData] = useState({
-    department: '',
+    department_id: '',
     experience: '',
     suggestions: ''
   });
+  const [departments, setDepartments] = useState<Department[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
-  const departments = [
-    'Computer Science',
-    'Mathematics',
-    'Physics',
-    'Chemistry',
-    'Biology',
-    'English',
-    'History'
-  ];
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await departmentService.getDepartments();
+        setDepartments(response.data.departments);
+      } catch (error) {
+        console.error('Failed to fetch departments:', error);
+        toast.error('Failed to load departments');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleSubmit = (e: React.FormEvent) => {
+    fetchDepartments();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.department || !formData.experience || rating === 0) {
+    if (!formData.department_id || !formData.experience || rating === 0) {
       toast.error('Please fill in all required fields and provide a rating');
       return;
     }
 
-    // Mock API call
-    toast.success('Thank you for your feedback!');
-    setFormData({ department: '', experience: '', suggestions: '' });
-    setRating(0);
+    setSubmitting(true);
+    try {
+      await feedbackService.submitFeedback(
+        parseInt(formData.department_id),
+        rating,
+        formData.experience,
+        formData.suggestions
+      );
+      toast.success('Thank you for your feedback!');
+      setFormData({ department_id: '', experience: '', suggestions: '' });
+      setRating(0);
+    } catch (error: any) {
+      console.error('Failed to submit feedback:', error);
+      toast.error(error.response?.data?.error || 'Failed to submit feedback');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -59,16 +88,17 @@ export function Feedback() {
                 Department *
               </label>
               <select
-                id="department"
-                name="department"
-                value={formData.department}
+                id="department_id"
+                name="department_id"
+                value={formData.department_id}
                 onChange={handleChange}
                 className="form-select"
                 required
+                disabled={loading}
               >
                 <option value="">Select a department</option>
                 {departments.map((dept) => (
-                  <option key={dept} value={dept}>{dept}</option>
+                  <option key={dept.id} value={dept.id}>{dept.name}</option>
                 ))}
               </select>
             </div>
@@ -129,8 +159,8 @@ export function Feedback() {
               />
             </div>
 
-            <button type="submit" className="submit-btn">
-              Submit Feedback
+            <button type="submit" className="submit-btn" disabled={submitting}>
+              {submitting ? 'Submitting...' : 'Submit Feedback'}
             </button>
           </form>
         </div>

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { DashboardLayout } from '../components/DashboardLayout';
+import { appointmentService } from '../services/api';
+import toast from 'react-hot-toast';
 import '../styles/Appointments.css';
 
 interface Appointment {
@@ -8,7 +10,8 @@ interface Appointment {
   date: string;
   time: string;
   status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
-  queueNumber: string;
+  queue_number: string;
+  reason?: string;
 }
 
 export function Appointments() {
@@ -16,28 +19,19 @@ export function Appointments() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Mock data - replace with API call
-    setTimeout(() => {
-      setAppointments([
-        {
-          id: 1,
-          department: 'Computer Science',
-          date: '2025-12-20',
-          time: '10:00 AM',
-          status: 'confirmed',
-          queueNumber: 'CS-001'
-        },
-        {
-          id: 2,
-          department: 'Mathematics',
-          date: '2025-12-18',
-          time: '2:00 PM',
-          status: 'completed',
-          queueNumber: 'MATH-023'
-        }
-      ]);
-      setLoading(false);
-    }, 500);
+    const fetchAppointments = async () => {
+      try {
+        const response = await appointmentService.getUserAppointments();
+        setAppointments(response.data.appointments);
+      } catch (error) {
+        console.error('Failed to fetch appointments:', error);
+        toast.error('Failed to load appointments');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAppointments();
   }, []);
 
   const getStatusClass = (status: string) => {
@@ -70,19 +64,32 @@ export function Appointments() {
                     <span className={getStatusClass(appointment.status)}>
                       {appointment.status.toUpperCase()}
                     </span>
-                    <span className="queue-number">{appointment.queueNumber}</span>
+                    <span className="queue-number">{appointment.queue_number}</span>
                   </div>
                   <div className="card-body">
                     <h3 className="department-name">{appointment.department}</h3>
                     <div className="appointment-details">
                       <div className="detail-item">
                         <span className="detail-label">Date:</span>
-                        <span className="detail-value">{new Date(appointment.date).toLocaleDateString()}</span>
+                        <span className="detail-value">
+                          {new Date(appointment.date).toLocaleDateString('en-US', {
+                            weekday: 'short',
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                          })}
+                        </span>
                       </div>
                       <div className="detail-item">
                         <span className="detail-label">Time:</span>
                         <span className="detail-value">{appointment.time}</span>
                       </div>
+                      {appointment.reason && (
+                        <div className="detail-item">
+                          <span className="detail-label">Reason:</span>
+                          <span className="detail-value">{appointment.reason}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

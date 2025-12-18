@@ -44,4 +44,30 @@ export class AuthController {
       res.status(500).json({ error: error.message });
     }
   }
+
+  static async updateProfile(req: Request, res: Response) {
+    try {
+      if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
+
+      const { name, email, phone, department, year } = req.body;
+
+      if (!name || !email) {
+        return res.status(400).json({ error: 'Name and email are required' });
+      }
+
+      const user = await AuthService.updateProfile(req.user.id, {
+        name,
+        email,
+        phone,
+        department,
+        year
+      });
+
+      res.json({ success: true, user });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }

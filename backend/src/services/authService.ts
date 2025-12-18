@@ -61,8 +61,50 @@ export class AuthService {
   static async getUserById(id: number): Promise<User | null> {
     const connection = await pool.getConnection();
     try {
-      const [users] = await connection.query('SELECT id, name, email, role, created_at FROM users WHERE id = ?', [id]);
+      const [users] = await connection.query(
+        'SELECT id, name, email, phone, department, year, student_id, role, created_at FROM users WHERE id = ?', 
+        [id]
+      );
       return (users as User[])[0] || null;
+    } finally {
+      connection.release();
+    }
+  }
+
+  static async updateProfile(id: number, data: {
+    name: string;
+    email: string;
+    phone?: string;
+    department?: string;
+    year?: string;
+  }): Promise<User> {
+    const connection = await pool.getConnection();
+    try {
+      // Check if email is already in use by another user
+      const [existingUser] = await connection.query(
+        'SELECT id FROM users WHERE email = ? AND id != ?',
+        [data.email, id]
+      );
+      
+      if ((existingUser as any[]).length > 0) {
+        throw new Error('Email already in use');
+      }
+
+      // Update user
+      await connection.query(
+        `UPDATE users 
+         SET name = ?, email = ?, phone = ?, department = ?, year = ? 
+         WHERE id = ?`,
+        [data.name, data.email, data.phone || null, data.department || null, data.year || null, id]
+      );
+
+      // Get updated user
+      const [users] = await connection.query(
+        'SELECT id, name, email, phone, department, year, student_id, role, created_at FROM users WHERE id = ?',
+        [id]
+      );
+      
+      return (users as User[])[0];
     } finally {
       connection.release();
     }
