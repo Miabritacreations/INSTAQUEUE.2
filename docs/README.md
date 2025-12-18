@@ -9,6 +9,9 @@ Welcome to InstaQueue documentation! Choose a section below to get started.
 - [Local Development Setup](./guides/LOCAL_DEVELOPMENT.md) - Detailed local development guide
 - [Installation](./guides/INSTALLATION.md) - Platform-specific installation steps
 
+### Database
+- [Database Setup Guide](./database/DATABASE_SETUP.md) - Create and seed the database
+
 ### Deployment
 - [Docker Deployment](./deployment/DOCKER.md) - Production deployment with Docker
 - [Environment Configuration](./deployment/ENVIRONMENT.md) - All configuration options
@@ -31,6 +34,7 @@ Welcome to InstaQueue documentation! Choose a section below to get started.
 | QUICK_START.md | 5-minute setup guide |
 | LOCAL_DEVELOPMENT.md | Full local dev environment setup |
 | INSTALLATION.md | Install dependencies |
+| DATABASE_SETUP.md | Database creation and seeding |
 | DOCKER.md | Production Docker setup |
 | ENVIRONMENT.md | Environment variables reference |
 | BUILD_REPORT.md | Build verification results |
@@ -45,6 +49,9 @@ Welcome to InstaQueue documentation! Choose a section below to get started.
 
 ### "I want to start developing locally"
 → See [Quick Start Guide](./guides/QUICK_START.md)
+
+### "I need to set up the database"
+→ See [Database Setup Guide](./database/DATABASE_SETUP.md)
 
 ### "I need to set up production"
 → See [Docker Deployment](./deployment/DOCKER.md)
