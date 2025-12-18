@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+*/node_modules
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+*/dist
+*/build
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Cache
+.cache/
+*/cache
+.next/
+.nuxt/
+
+# Misc
+.DS_Store
+Thumbs.db
+
+# Old PHP files
+INSTA_QUEUE/*.html
+INSTA_QUEUE/css
+INSTA_QUEUE/js
+INSTA_QUEUE/backend/*.php

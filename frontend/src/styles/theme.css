@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+  /* Primary Colors */
+  --color-primary: #192C57;
+  --color-primary-dark: #0d1629;
+  --color-primary-light: #2a3d6e;
+
+  /* Accent Colors */
+  --color-accent: #CBAE2D;
+  --color-accent-light: #d4bc4a;
+  --color-accent-lighter: #e0ca6f;
+
+  /* Background Colors */
+  --color-bg-light: #FFFDD0;
+  --color-bg-white: #ffffff;
+  --color-bg-gray: #f8f9fa;
+  --color-bg-darker: #e9ecef;
+
+  /* Text Colors */
+  --color-text-primary: #192C57;
+  --color-text-secondary: #666666;
+  --color-text-light: #999999;
+  --color-text-white: #ffffff;
+  --color-text-muted: #c0c0c0;
+
+  /* Status Colors */
+  --color-status-pending: #ffc107;
+  --color-status-in-service: #17a2b8;
+  --color-status-completed: #28a745;
+  --color-status-cancelled: #dc3545;
+
+  /* Border Colors */
+  --color-border: #e9ecef;
+  --color-border-light: #f0f0f0;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 12px 30px rgba(203, 174, 45, 0.15);
+
+  /* Font Family */
+  --font-family-serif: 'PT Serif', serif;
+  --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+}
+
+/* Apply font globally */
+* {
+  font-family: var(--font-family-serif);
+}
+
+body {
+  font-family: var(--font-family-serif);
+  background-color: var(--color-bg-light);
+  color: var(--color-text-primary);
+}
