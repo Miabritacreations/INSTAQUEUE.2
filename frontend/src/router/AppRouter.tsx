@@ -6,6 +6,11 @@ import { Login } from '../pages/Login';
 import { Register } from '../pages/Register';
 import { StudentDashboard } from '../pages/StudentDashboard';
 import { AdminDashboard } from '../pages/AdminDashboard';
+import { Appointments } from '../pages/Appointments';
+import { BookAppointment } from '../pages/BookAppointment';
+import { Notifications } from '../pages/Notifications';
+import { Profile } from '../pages/Profile';
+import { Feedback } from '../pages/Feedback';
 
 export function AppRouter() {
   return (
@@ -16,6 +21,11 @@ export function AppRouter() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<ProtectedRoute element={<StudentDashboard />} />} />
+          <Route path="/appointments" element={<ProtectedRoute element={<Appointments />} />} />
+          <Route path="/book-appointment" element={<ProtectedRoute element={<BookAppointment />} />} />
+          <Route path="/notifications" element={<ProtectedRoute element={<Notifications />} />} />
+          <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
+          <Route path="/feedback" element={<ProtectedRoute element={<Feedback />} />} />
           <Route path="/admin" element={<ProtectedRoute element={<AdminDashboard />} />} />
         </Routes>
       </AuthProvider>

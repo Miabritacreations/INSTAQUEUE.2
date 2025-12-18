@@ -1,0 +1,96 @@
+import { useState, useEffect } from 'react';
+import { DashboardLayout } from '../components/DashboardLayout';
+import '../styles/Appointments.css';
+
+interface Appointment {
+  id: number;
+  department: string;
+  date: string;
+  time: string;
+  status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
+  queueNumber: string;
+}
+
+export function Appointments() {
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Mock data - replace with API call
+    setTimeout(() => {
+      setAppointments([
+        {
+          id: 1,
+          department: 'Computer Science',
+          date: '2025-12-20',
+          time: '10:00 AM',
+          status: 'confirmed',
+          queueNumber: 'CS-001'
+        },
+        {
+          id: 2,
+          department: 'Mathematics',
+          date: '2025-12-18',
+          time: '2:00 PM',
+          status: 'completed',
+          queueNumber: 'MATH-023'
+        }
+      ]);
+      setLoading(false);
+    }, 500);
+  }, []);
+
+  const getStatusClass = (status: string) => {
+    return `status-badge status-${status}`;
+  };
+
+  return (
+    <DashboardLayout>
+      <div className="appointments-page">
+        <div className="page-header">
+          <h1 className="page-title">My Appointments</h1>
+          <p className="page-subtitle">View and manage your scheduled appointments</p>
+        </div>
+
+        {loading ? (
+          <div className="loading-container">
+            <div className="spinner"></div>
+            <p>Loading appointments...</p>
+          </div>
+        ) : (
+          <div className="appointments-grid">
+            {appointments.length === 0 ? (
+              <div className="empty-state">
+                <p>No appointments found</p>
+              </div>
+            ) : (
+              appointments.map((appointment) => (
+                <div key={appointment.id} className="appointment-card">
+                  <div className="card-header">
+                    <span className={getStatusClass(appointment.status)}>
+                      {appointment.status.toUpperCase()}
+                    </span>
+                    <span className="queue-number">{appointment.queueNumber}</span>
+                  </div>
+                  <div className="card-body">
+                    <h3 className="department-name">{appointment.department}</h3>
+                    <div className="appointment-details">
+                      <div className="detail-item">
+                        <span className="detail-label">Date:</span>
+                        <span className="detail-value">{new Date(appointment.date).toLocaleDateString()}</span>
+                      </div>
+                      <div className="detail-item">
+                        <span className="detail-label">Time:</span>
+                        <span className="detail-value">{appointment.time}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+      </div>
+    </DashboardLayout>
+  );
+}
