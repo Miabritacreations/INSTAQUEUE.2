@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaLightbulb, FaMapPin, FaBell } from 'react-icons/fa6';
+import { HiSparkles, HiCheckCircle, HiClock, HiExclamationCircle, HiChartBar } from 'react-icons/hi2';
+import { MdArrowForward, MdPerson, MdAttachMoney, MdComputer, MdBook, MdHealthAndSafety, MdEmojiPeople, MdBallot, MdSchool } from 'react-icons/md';
+import { BiCheckCircle } from 'react-icons/bi';
+import { BsArrowRight } from 'react-icons/bs';
 import '../styles/LandingPage.css';
 
 const campusImage = new URL('../assets/images/kca-university-town-campus-fun-day-ymca-grounds-6.jpg', import.meta.url).href;
@@ -27,7 +32,9 @@ export function LandingPage() {
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <div className="hero-text">
-            <span className="hero-badge">Campus Management Platform</span>
+            <span className="hero-badge">
+              Campus Management Platform
+            </span>
             <h1>Smart Queue Management for Modern Universities</h1>
             <p className="hero-subtitle">
               Say goodbye to long physical queues. With InstaQueue, book appointments online, 
@@ -61,17 +68,17 @@ export function LandingPage() {
 
           <div className="hero-benefits">
             <div className="benefit-item">
-              <div className="benefit-icon">⚡</div>
+              <div className="benefit-icon"><FaLightbulb /></div>
               <h4>Instant Booking</h4>
               <p>Reserve appointments in seconds</p>
             </div>
             <div className="benefit-item">
-              <div className="benefit-icon">📍</div>
+              <div className="benefit-icon"><FaMapPin /></div>
               <h4>Real-Time Tracking</h4>
               <p>Know your queue position anytime</p>
             </div>
             <div className="benefit-item">
-              <div className="benefit-icon">🔔</div>
+              <div className="benefit-icon"><FaBell /></div>
               <h4>Smart Notifications</h4>
               <p>Get alerted when it's your turn</p>
             </div>
@@ -94,9 +101,6 @@ export function LandingPage() {
                 KCA University Town Campus
               </a>
             </div>
-            <svg className="credit-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
           </div>
         </div>
       </section>
@@ -106,22 +110,22 @@ export function LandingPage() {
         <h2>The Problem We Solve</h2>
         <div className="problems-grid">
           <div className="problem-card">
-            <div className="problem-icon">👥</div>
+            <div className="problem-icon"><HiCheckCircle className="icon-lg" /></div>
             <h3>Long Physical Queues</h3>
             <p>Students waste hours standing in queues at departments just to book appointments.</p>
           </div>
           <div className="problem-card">
-            <div className="problem-icon">⏰</div>
+            <div className="problem-icon"><HiClock className="icon-lg" /></div>
             <h3>Unpredictable Wait Times</h3>
             <p>No visibility into queue status means uncertainty and frustration.</p>
           </div>
           <div className="problem-card">
-            <div className="problem-icon">❌</div>
+            <div className="problem-icon"><HiExclamationCircle className="icon-lg" /></div>
             <h3>Inefficient Resource Use</h3>
             <p>Department staff can't manage workflow or predict staffing needs.</p>
           </div>
           <div className="problem-card">
-            <div className="problem-icon">📊</div>
+            <div className="problem-icon"><HiChartBar className="icon-lg" /></div>
             <h3>Poor Data Insights</h3>
             <p>No analytics on queue patterns, peak times, or service efficiency.</p>
           </div>
@@ -137,9 +141,9 @@ export function LandingPage() {
             <h3>Smart Booking System</h3>
             <p>Reserve appointments online at your preferred time without physical queues. Get instant confirmation and reminders.</p>
             <ul>
-              <li>✓ Choose your preferred time slot</li>
-              <li>✓ Instant email confirmations</li>
-              <li>✓ Easy rescheduling & cancellation</li>
+              <li><BiCheckCircle className="check-icon" /> Choose your preferred time slot</li>
+              <li><BiCheckCircle className="check-icon" /> Instant email confirmations</li>
+              <li><BiCheckCircle className="check-icon" /> Easy rescheduling & cancellation</li>
             </ul>
           </div>
 
@@ -148,9 +152,9 @@ export function LandingPage() {
             <h3>Real-Time Queue Tracking</h3>
             <p>See your queue position, wait time, and when you're being called. Stay informed every step of the way.</p>
             <ul>
-              <li>✓ Live queue updates</li>
-              <li>✓ Estimated wait times</li>
-              <li>✓ Notifications when it's your turn</li>
+              <li><BiCheckCircle className="check-icon" /> Live queue updates</li>
+              <li><BiCheckCircle className="check-icon" /> Estimated wait times</li>
+              <li><BiCheckCircle className="check-icon" /> Notifications when it's your turn</li>
             </ul>
           </div>
 
@@ -159,9 +163,9 @@ export function LandingPage() {
             <h3>Department Management</h3>
             <p>Admins can manage queues, serve students, and analyze traffic patterns in real-time.</p>
             <ul>
-              <li>✓ Call next student</li>
-              <li>✓ Mark tasks complete</li>
-              <li>✓ View analytics dashboard</li>
+              <li><BiCheckCircle className="check-icon" /> Call next student</li>
+              <li><BiCheckCircle className="check-icon" /> Mark tasks complete</li>
+              <li><BiCheckCircle className="check-icon" /> View analytics dashboard</li>
             </ul>
           </div>
 
@@ -170,9 +174,9 @@ export function LandingPage() {
             <h3>Feedback & Ratings</h3>
             <p>Submit feedback after each visit to help us improve service quality continuously.</p>
             <ul>
-              <li>✓ Rate your experience</li>
-              <li>✓ Leave detailed feedback</li>
-              <li>✓ Help improve services</li>
+              <li><BiCheckCircle className="check-icon" /> Rate your experience</li>
+              <li><BiCheckCircle className="check-icon" /> Leave detailed feedback</li>
+              <li><BiCheckCircle className="check-icon" /> Help improve services</li>
             </ul>
           </div>
 
@@ -181,9 +185,9 @@ export function LandingPage() {
             <h3>Multi-Department Support</h3>
             <p>Book appointments across all campus departments from one unified platform.</p>
             <ul>
-              <li>✓ 8+ department types</li>
-              <li>✓ Different service types</li>
-              <li>✓ Centralized management</li>
+              <li><BiCheckCircle className="check-icon" /> 8+ department types</li>
+              <li><BiCheckCircle className="check-icon" /> Different service types</li>
+              <li><BiCheckCircle className="check-icon" /> Centralized management</li>
             </ul>
           </div>
 
@@ -192,9 +196,9 @@ export function LandingPage() {
             <h3>Mobile Optimized</h3>
             <p>Fully responsive design works seamlessly on phones, tablets, and desktops.</p>
             <ul>
-              <li>✓ Mobile-first design</li>
-              <li>✓ Fast & lightweight</li>
-              <li>✓ Works offline</li>
+              <li><BiCheckCircle className="check-icon" /> Mobile-first design</li>
+              <li><BiCheckCircle className="check-icon" /> Fast & lightweight</li>
+              <li><BiCheckCircle className="check-icon" /> Works offline</li>
             </ul>
           </div>
         </div>
@@ -205,42 +209,42 @@ export function LandingPage() {
         <h2>Campus Departments We Serve</h2>
         <div className="departments-grid">
           <div className="dept-item">
-            <div className="dept-icon">📚</div>
+            <div className="dept-icon"><MdPerson className="icon-lg" /></div>
             <h4>Registrar</h4>
             <p>Academic records & enrollment</p>
           </div>
           <div className="dept-item">
-            <div className="dept-icon">💰</div>
+            <div className="dept-icon"><MdAttachMoney className="icon-lg" /></div>
             <h4>Finance / Fees Office</h4>
             <p>Payments & billing issues</p>
           </div>
           <div className="dept-item">
-            <div className="dept-icon">💻</div>
+            <div className="dept-icon"><MdComputer className="icon-lg" /></div>
             <h4>ICT / Technical Support</h4>
             <p>Technical assistance</p>
           </div>
           <div className="dept-item">
-            <div className="dept-icon">📖</div>
+            <div className="dept-icon"><MdBook className="icon-lg" /></div>
             <h4>Library Services</h4>
             <p>Learning resources</p>
           </div>
           <div className="dept-item">
-            <div className="dept-icon">⚕️</div>
+            <div className="dept-icon"><MdHealthAndSafety className="icon-lg" /></div>
             <h4>Health Unit</h4>
             <p>Healthcare & wellness</p>
           </div>
           <div className="dept-item">
-            <div className="dept-icon">🎓</div>
+            <div className="dept-icon"><MdEmojiPeople className="icon-lg" /></div>
             <h4>Student Affairs</h4>
             <p>Welfare & accommodation</p>
           </div>
           <div className="dept-item">
-            <div className="dept-icon">📝</div>
+            <div className="dept-icon"><MdBallot className="icon-lg" /></div>
             <h4>Examination Office</h4>
             <p>Assessment records</p>
           </div>
           <div className="dept-item">
-            <div className="dept-icon">🎯</div>
+            <div className="dept-icon"><MdSchool className="icon-lg" /></div>
             <h4>Admissions Office</h4>
             <p>Admission processes</p>
           </div>
@@ -256,19 +260,19 @@ export function LandingPage() {
             <h3>Sign Up</h3>
             <p>Create your account in seconds with your email</p>
           </div>
-          <div className="step-arrow">→</div>
+          <div className="step-arrow"><MdArrowForward /></div>
           <div className="step">
             <div className="step-number">2</div>
             <h3>Book Appointment</h3>
             <p>Choose department, date & time</p>
           </div>
-          <div className="step-arrow">→</div>
+          <div className="step-arrow"><MdArrowForward /></div>
           <div className="step">
             <div className="step-number">3</div>
             <h3>Get Confirmed</h3>
             <p>Receive confirmation & reminders</p>
           </div>
-          <div className="step-arrow">→</div>
+          <div className="step-arrow"><MdArrowForward /></div>
           <div className="step">
             <div className="step-number">4</div>
             <h3>Track Queue</h3>

@@ -216,6 +216,7 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   max-width: 280px;
+  width: fit-content;
 }
 
 .credit-badge:hover {
@@ -518,12 +519,30 @@
   color: var(--color-accent);
   flex-basis: 100%;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
   .step-arrow {
     flex-basis: auto;
   }
+}
+
+/* Icon Styles */
+.icon-lg {
+  font-size: 2.5rem;
+}
+
+.badge-icon {
+  font-size: 1rem;
+}
+
+.check-icon {
+  color: var(--color-accent);
+  margin-right: 0.5rem;
+  vertical-align: middle;
 }
 
 /* CTA Section */
