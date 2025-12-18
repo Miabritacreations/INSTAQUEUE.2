@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import { appointmentService } from '../services/api';
 import { Appointment } from '../types';
+import { DashboardLayout } from '../components/DashboardLayout';
 import '../styles/Dashboard.css';
 
 export const StudentDashboard: React.FC = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-  const { logout } = useAuth();
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -37,28 +34,22 @@ export const StudentDashboard: React.FC = () => {
     }
   };
 
-  if (loading) return <div className="dashboard-container">Loading...</div>;
-
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
+  if (loading) {
+    return (
+      <DashboardLayout>
+        <div className="loading-container">Loading...</div>
+      </DashboardLayout>
+    );
+  }
 
   return (
-    <>
-      <nav className="dashboard-navbar">
-        <div className="dashboard-nav-container">
-          <h1 onClick={() => navigate('/')}>InstaQueue</h1>
-          <div className="dashboard-nav-links">
-            <span>Student Dashboard</span>
-            <button onClick={handleLogout} className="logout-btn">Logout</button>
-          </div>
-        </div>
-      </nav>
-      <div className="dashboard-container">
-        <h1>My Appointments</h1>
+    <DashboardLayout>
+      <div className="dashboard-content">
+        <h1 className="page-title">My Appointments</h1>
         {appointments.length === 0 ? (
-          <p>No appointments yet</p>
+          <div className="empty-state">
+            <p>No appointments yet</p>
+          </div>
         ) : (
           <div className="appointments-grid">
             {appointments.map((apt) => (
@@ -79,6 +70,6 @@ export const StudentDashboard: React.FC = () => {
           </div>
         )}
       </div>
-    </>
+    </DashboardLayout>
   );
 };

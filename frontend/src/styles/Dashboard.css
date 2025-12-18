@@ -1,75 +1,38 @@
-/* Dashboard Styles */
+/* Dashboard Content Styles */
 
-.dashboard-navbar {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
-  color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-nav-container {
-  max-width: 1280px;
+.dashboard-content {
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
-.dashboard-nav-container h1 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  color: var(--color-accent);
-}
-
-.dashboard-nav-container h1:hover {
-  color: var(--color-accent-light);
-}
-
-.dashboard-nav-links {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-}
-
-.dashboard-nav-links span {
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.logout-btn {
-  padding: 0.5rem 1rem;
-  background-color: var(--color-accent);
-  color: var(--color-primary);
-  border: none;
-  border-radius: 0.5rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  transform: translateY(0);
-  box-shadow: 0 4px 6px rgba(203, 174, 45, 0.2);
-}
-
-.logout-btn:hover {
-  background-color: var(--color-accent-light);
-  transform: translateY(-2px);
-}
-
-.dashboard-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
-
-.dashboard-container h1 {
+.page-title {
   font-size: 2.25rem;
   font-weight: 700;
   margin-bottom: 2rem;
   color: var(--color-primary);
+  font-family: var(--font-family-serif);
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  color: #666;
 }
 
 /* Appointments Grid */
