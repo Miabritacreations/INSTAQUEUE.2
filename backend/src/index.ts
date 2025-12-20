@@ -10,7 +10,7 @@ import departmentRoutes from './routes/departments';
 import feedbackRoutes from './routes/feedback';
 import notificationRoutes from './routes/notifications';
 import { authMiddleware } from './middleware/auth';
-import { redisClient } from './config/redis';
+// import { redisClient } from './config/redis'; // Redis temporarily disabled
 
 dotenv.config();
 
@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Connect Redis
-redisClient.connect();
+// redisClient.connect(); // Redis temporarily disabled
 
 // Health check
 app.get('/health', (req: Request, res: Response) => {
