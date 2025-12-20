@@ -12,9 +12,67 @@ This guide covers setting up the InstaQueue MariaDB database schema, tables, and
 
 ### 1. Access MySQL CLI
 
+#### Linux/macOS
+
 ```bash
 sudo mysql
 ```
+
+#### Windows
+
+**Option 1: Using Command Prompt**
+
+1. Open Command Prompt (cmd) or PowerShell as Administrator
+2. Navigate to the MariaDB installation directory:
+   ```cmd
+   cd "C:\Program Files\MariaDB 11.x\bin"
+   ```
+   *(Replace `11.x` with your installed version)*
+
+3. Connect to MariaDB:
+   
+   **If MariaDB is on default port 3306:**
+   ```cmd
+   mysql.exe -u root -p
+   ```
+   
+   **If MariaDB is on port 3307 (MySQL on 3306):**
+   ```cmd
+   mysql.exe -u root -p --port=3307
+   ```
+
+4. Enter the root password when prompted
+
+**Option 2: Using MySQL Client from PATH**
+
+If MariaDB bin directory is in your system PATH:
+
+**Default port (3306):**
+```cmd
+mysql -u root -p
+```
+
+**Port 3307:**
+```cmd
+mysql -u root -p --port=3307
+```
+
+**Option 3: Using HeidiSQL (GUI)**
+
+1. Open HeidiSQL (installed with MariaDB)
+2. Click "New" to create a new session
+3. Enter connection details:
+   - Network type: `MariaDB or MySQL (TCP/IP)`
+   - Hostname/IP: `localhost`
+   - User: `root`
+   - Password: *(your root password)*
+   - Port: `3306` *(or `3307` if MariaDB is on port 3307)*
+4. Click "Open"
+5. Use the Query tab to execute SQL commands
+
+> 💡 **Tip**: If you have both MySQL and MariaDB installed, MariaDB typically runs on port `3307` while MySQL uses the default `3306`.
+
+---
 
 You should see the MariaDB prompt:
 ```
@@ -335,6 +393,7 @@ INSERT INTO users (name, email, password, role) VALUES
 
 ## Connection Credentials (Development)
 
+**Default Configuration (MariaDB on port 3306):**
 ```
 Host: localhost
 Port: 3306
@@ -343,7 +402,18 @@ Password: rootpassword
 Database: instaqueue
 ```
 
+**If MariaDB is on port 3307 (MySQL on 3306):**
+```
+Host: localhost
+Port: 3307
+User: root
+Password: rootpassword
+Database: instaqueue
+```
+
 > ⚠️ **For Production**: Use strong, unique passwords and configure proper user permissions!
+> 
+> 💡 **Windows Users**: If you have both MySQL and MariaDB installed, check your MariaDB port in `my.ini` configuration file (typically in `C:\Program Files\MariaDB 11.x\data\`).
 
 ## Creating Database User (Local Development)
 
@@ -376,6 +446,7 @@ EXIT;
 
 Update your `.env` file in the `backend/` directory:
 
+**If MariaDB is on port 3306:**
 ```env
 # Database
 DB_HOST=localhost
@@ -385,12 +456,28 @@ DB_PASSWORD=instaqueue123
 DB_NAME=instaqueue
 ```
 
+**If MariaDB is on port 3307:**
+```env
+# Database
+DB_HOST=localhost
+DB_PORT=3307
+DB_USER=instaqueue
+DB_PASSWORD=instaqueue123
+DB_NAME=instaqueue
+```
+
 ### Step 4: Verify Connection
 
 Test the connection:
 
+**Port 3306:**
 ```bash
 mysql -u instaqueue -p instaqueue -h localhost
+```
+
+**Port 3307:**
+```bash
+mysql -u instaqueue -p instaqueue -h localhost --port=3307
 ```
 
 When prompted, enter password: `instaqueue123`
