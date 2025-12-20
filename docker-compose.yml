@@ -23,7 +23,7 @@ services:
       - CORS_ORIGIN=http://localhost:3000
     depends_on:
       - mariadb
-      - redis
+      # - redis  # Redis temporarily disabled
     networks:
       - instaqueue-network
     restart: unless-stopped
@@ -64,21 +64,21 @@ services:
       timeout: 5s
       retries: 5
 
-  # Redis Cache
-  redis:
-    image: redis:7-alpine
-    container_name: instaqueue_redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    networks:
-      - instaqueue-network
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      timeout: 3s
-      retries: 5
+  # Redis Cache - Temporarily disabled
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: instaqueue_redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis_data:/data
+  #   networks:
+  #     - instaqueue-network
+  #   restart: unless-stopped
+  #   healthcheck:
+  #     test: ["CMD", "redis-cli", "ping"]
+  #     timeout: 3s
+  #     retries: 5
 
 networks:
   instaqueue-network:
@@ -86,4 +86,4 @@ networks:
 
 volumes:
   mariadb_data:
-  redis_data:
+  # redis_data:  # Redis temporarily disabled
