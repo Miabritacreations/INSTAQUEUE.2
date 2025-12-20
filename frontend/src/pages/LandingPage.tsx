@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaLightbulb, FaMapPin, FaBell } from 'react-icons/fa6';
 import Footer from '../components/Footer';
-import { HiSparkles, HiCheckCircle, HiClock, HiExclamationCircle, HiChartBar } from 'react-icons/hi2';
+import { HiCheckCircle, HiClock, HiExclamationCircle, HiChartBar } from 'react-icons/hi2';
 import { MdArrowForward, MdPerson, MdAttachMoney, MdComputer, MdBook, MdHealthAndSafety, MdEmojiPeople, MdBallot, MdSchool, MdPhotoCamera } from 'react-icons/md';
 import { BiCheckCircle } from 'react-icons/bi';
-import { BsArrowRight } from 'react-icons/bs';
+ 
 import '../styles/LandingPage.css';
 
 const campusImage = new URL('../assets/images/kca-university-town-campus-fun-day-ymca-grounds-6.jpg', import.meta.url).href;
